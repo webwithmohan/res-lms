@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Members</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/variable.css" />
+  <link rel="stylesheet" href="../css/member.css" />
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+</head>
+
+<body>
+  <aside></aside>
+
+  <!--Main Content-->
+  <main>
+    <h1 style="display: flex; align-items: center">
+      Members<span class="material-symbols-outlined" style="
+            font-size: 40px;
+            text-align: center;
+            align-content: center;
+            margin-left: 20px;
+          ">
+        groups
+      </span>
+    </h1>
+    <p id="total-users"></p>
+
+    <div class="wrapper">
+
+
+      <div class="table-container">
+        <table class="member-table">
+          <thead>
+            <tr>
+              <th>Member ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th class="action-col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+  <button
+    style="position: absolute; top: 20px; right: 20px;background-color: var(--main-color);color: white; padding: 5px 10px;border: none; outline: none; border-radius: 4px;"
+    onClick="addMember('MEM-101')">Add Member<button>
+
+      <script src="../js/sidebar.js"></script>
+      <script src="../js/dashboard.js"></script>
+      <script src="../js/member.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+
+</html>

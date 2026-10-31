@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="ball"></div>
+   
+    <section>
+      <h3 style="color: white;">Login</h3>
+      <form novalidate onsubmit="checkLoginDetails(event)">
+        <div class="input-group">
+          <input type="text" placeholder="Enter Email Address" required id="email" style="border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
+          <input type="password" placeholder="Enter Your Password" required id="password" />
+          <span id="error"></span>
+        </div>
+        <div class="btn-group">
+          <button class="login-btn" id="login-btn">Login</button>
+
+        </div>
+
+      </form>
+      <button class="forgot-btn">Forgot Password?</button>
+      <a href="register.html">Create New Account</a>
+      <!-- <span class="or">Or</span>
+        <div class="social-icons">
+            <i class="icons fa-brands fa-facebook"></i>
+            <i class="icons fa-brands fa-instagram"></i>
+            <i class="icons fa-brands fa-github"></i>
+        </div> -->
+    </section>
+  </div>
+
+  <!--Alert Popup-->
+  <div class="alert">
+    <p>No User Data Found</p>
+  </div>
+
+  
+   <script src="../js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
+        integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+       
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+
+<body>
+    <section>
+        <form novalidate onsubmit="checkForm(event)" id="myForm">
+
+       
+        <h3>Create New Account</h3>
+        <div class="input-group">
+            <!-- Eye Button -->
+            <!-- <i class="fa-solid fa-eye-slash close-eye"></i> -->
+            <!-- Username -->
+            <input type="text" placeholder="User Name" required id="user-name" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+            <span id="username-error"></span>
+            <!-- Email -->
+            <input type="email" placeholder="Enter Email Address" required id="email">
+            <span id="email-error"></span>
+            <!-- Department -->
+             <select name="" id="department">
+                
+                <option value="Master of Computer Application" >Master of Computer Application</option>
+                <option value="Bachelor of Computer Science">Bachelar of Computer Science</option>
+                <option value="Bachelor of Computer Application">Master of Computer Application</option>
+             </select>
+             
+            <!-- Phone -->
+            <input type="text" name=""  placeholder="Phone" required id="phone">
+            <span id="phone-error"></span>
+            <!-- Address -->
+            <input type="text" placeholder="Address" id="address">
+            <span id="address-error"></span>
+            <!-- Password -->
+            <input type="password" placeholder="Password" id="password">
+            <span id="password-error"></span>
+            <!-- Confirm Password -->
+            <input type="password" placeholder="Confirm Password" id="confirm-password">
+            <span id="confirm-password-error"></span>
+
+
+        </div>
+        <div class="btn-group">
+            <button class="register-btn" id="register-button" type="submit">Register</button>
+        
+        </div>
+         </form>
+             <button class="already-btn" id="already-button">I already have an account</button>
+
+
+    </section>
+
+
+    <!-- Overlay Section -->
+    <div class="overlay">
+        <div class="popup">
+            <h2>Registration Success <br>wait 3s redirect to login page</h2>
+            <!-- <button>Ok</button> -->
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="../js/register.js">
+    
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

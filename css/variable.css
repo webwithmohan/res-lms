@@ -1,0 +1,17 @@
+ /* Google Font Link */
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+ /*Google Icons */
+ @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+:root{
+    --main-color:rgb(55, 104, 164);
+    --light-color:rgb(201, 221, 246);
+    --main-font:"Poppins", sans-serif;
+    --ts-:0.2s ease;
+    --tf-:-3px;
+    --success-color:rgb(22, 99, 22);
+ }

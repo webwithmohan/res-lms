@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/variable.css" />
+</head>
+
+<body>
+  <!-- <nav>
+      <h1>Dashboard</h1>
+      <p id="user-d">Welcome,</p>
+    </nav>
+
+    <div class="side">
+        <button id="btn">Logout</button>
+    </div> -->
+
+  <aside></aside>
+
+  <!-- Main Content -->
+  <main>
+    <div class="cards">
+      <div class="card card-1">
+        <div class="icon-box">
+          <span class="material-symbols-outlined"> auto_stories </span>
+        </div>
+        <div class="text-box">
+          <h2>Total Books</h2>
+          <h2 id="totalBooks">20</h2>
+        </div>
+      </div>
+      <div class="card card-2">
+        <div class="icon-box">
+          <span class="material-symbols-outlined"> auto_stories </span>
+        </div>
+        <div class="text-box">
+          <h2>Available Books</h2>
+          <h2 id="available-books">15</h2>
+        </div>
+      </div>
+      <div class="card card-3">
+        <div class="icon-box">
+          <span class="material-symbols-outlined"> auto_stories </span>
+        </div>
+        <div class="text-box">
+          <h2>Issued Books</h2>
+          <h2 id="issued-books"></h2>
+        </div>
+      </div>
+      <div class="card card-4">
+        <div class="icon-box">
+          <span class="material-symbols-outlined">
+            group
+          </span>
+        </div>
+        <div class="text-box">
+          <h2>Members</h2>
+          <h2 id="members">20</h2>
+        </div>
+      </div>
+    </div>
+    <!--Quick Action ToolBars-->
+    <div class="quick">
+      <div class="quick-text" style="margin: 10px 0px">
+        <span class="material-symbols-outlined"> bolt </span>
+        <h2 style="display: inline">Quick Actions</h2>
+      </div>
+      <div class="action-group">
+        <button class="action btn-action" onclick="navigateAddBook()">Add Book</button>
+        <button class="action btn-action" onclick="navigateAddMembers()">Add Member</button>
+        <button class="action btn-action" onclick="navigateIssueBooks()">Issue Book</button>
+        <button class="action btn-action" onclick="navigateReports()">Reports</button>
+      </div>
+    </div>
+    <!--Recent Issue Container-->
+    <div class="recent-issues">
+      <div class="recent-issues-text">
+        <h1>Recent Issued Books</h1>
+      </div>
+      <div class="recent-issue-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Recent ID</th>
+              <th>Memeber Name</th>
+              <th>Book Title</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="q-overlay">
+    <div class="q-container">
+      <div class="title">
+        <h2>Add Book</h2>
+      </div>
+      <div class="input-group">
+        <label for="bookid">Book Id</label>
+        <input type="text" name="" id="bookId">
+      </div>
+      <div class="input-group">
+        <label for="bookid">Book Title</label>
+        <input type="text" name="" id="bookTitle">
+      </div>
+      <div class="input-group">
+        <label for="bookid">Book Author</label>
+        <input type="text" name="" id="bookAuthor">
+      </div>
+      <div class="cq-section">
+        <div>
+          <label for="category">Category</label>
+          <select name="" id="bookCategory">
+            <option value="Tech">Tech</option>
+            <option value="Tech">Science</option>
+            <option value="Tech">Programming</option>
+            <option value="Tech">History</option>
+            <option value="Tech">Physics</option>
+          </select>
+        </div>
+         <div>
+          <label for="category">Quantity</label>
+          <input type="text" name="" id="bookQuantity">
+        </div>
+      </div>
+      <div class="py-section">
+        <div>
+          <label for="publisher">Publisher</label>
+          <input type="text" id="bookPublisher">
+        </div>
+        <div>
+          <label for="">Year</label>
+          <input type="text" id="bookYear">
+        </div>
+      </div>
+
+      <div class="btnSection">
+        <button class="btn btnCancel">Cancel</button>
+        <button class="btn btnAdd">Add</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/dashboard.js" defer></script>
+
+  <script src="../js/books.js" defer></script>
+  <!-- <script src="../popup/addbook/popup.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Issue Book</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/variable.css" />
+  <link rel="stylesheet" href="../css/issue.css">
+</head>
+
+<body>
+  <aside></aside>
+
+  <!--Main Content-->
+  <main>
+    <h1>Issue Book</h1>
+    <div class="issue-book-container" style="display: flex">
+      <div class="left-issue" style="width: 30%;border: 2px solid rgb(215, 213, 213); border-radius: 8px;">
+        <div class="container">
+          <div class="text"
+            style="border-bottom: 2px solid rgb(198, 195, 195); background-color: rgb(219, 217, 217); padding: 10px;">
+            <h2 style=>Issue Book Container</h2>
+          </div>
+          <div class="section" style="padding: 10px;">
+            <div class="input-group">
+              <label for="">Select Member <span>*</span></label><br />
+              <select name="" id="memberSelect">
+                <option value="">....Select Member....</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="">Select Book <span>*</span></label><br />
+              <select name="" id="bookSelect">
+                <option value="">Select Book...</option>
+              </select>
+            </div>
+            <div class="input-group" style="display: flex; justify-content: space-between; gap: 10px;">
+              <div class="date" style="flex-grow: 1;">
+                <label for="">Issue Date <span>*</span></label><br />
+                <input type="date" id="issueDate" />
+              </div>
+              <div class="due" style="flex-grow: 1;">
+                <label for="">Return / Due Date <span>*</span></label><br />
+                <input type="date" id="dueDate" />
+              </div>
+            </div>
+            <div class="btn-group">
+              <button style="flex-grow: 4 ;background-color: var(--main-color);color: white;" id="issueBtn">Issue Book
+                Now</button>
+              <button style="flex-grow: 2;" id="clearBtn">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="right-issue" style="margin-left: 30px; border: 2px solid rgb(212, 209, 209); border-radius: 10px">
+        <div class="right-text" style="background-color: rgb(210, 208, 208); padding: 10px 5px; border-radius: 8px;">
+          <h2>Issue Workflow Architecture</h2>
+
+        </div>
+        <div class="right-content" style="padding: 10px;">
+          <ol style="list-style: none;" class="avail-list">
+            <li>Availability Check</li>
+            <li>Stock Management</li>
+            <li>Transaction logging</li>
+          </ol>
+
+        </div>
+      </div> -->
+    </div>
+    <div class="wrapper" style="width: 100%;overflow: hidden;">
+      <div class="card-track">
+       
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/issue.js"></script>
+
+</body>
+
+</html>

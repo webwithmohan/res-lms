@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="../css/forgot.css" />
+</head>
+
+<body>
+  <form action="" onsubmit="checkOtp()">
+    <p>Forgot Password</p>
+    <input type="text" name="" placeholder="Enter registred email" id="userInput" />
+    <button class="otpBtn" id="otp">SEND OTP</button>
+  </form>
+
+  <script>
+    let otpBtn = document.getElementsByClassName("otpBtn")[0];
+
+    otpBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      let val = document.getElementsByTagName("input")[0].value;
+      let userData = JSON.parse(localStorage.getItem("users"));
+      let exist = userData.find((user) => user.email == val);
+      if (val == "") {
+        alert("Enter Email");
+        return;
+      } else if (!exist) {
+        alert("No user found this data");
+      }
+
+      if (exist) {
+        let otp = "";
+
+        for (let i = 0; i < 4; i++) {
+          let num = Math.floor(Math.random() * 10);
+          otp += num;
+        }
+        let newOtp = {
+          email: exist.email,
+          otp: otp
+        }
+
+        let form = document.getElementsByTagName('form')[0]
+        console.log(form);
+
+        localStorage.setItem('currentOtp', JSON.stringify(newOtp));
+        alert("Otp Sent Successfully")
+        window.location.href="verifyotp.html"
+        
+
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>

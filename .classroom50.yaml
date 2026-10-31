@@ -1,0 +1,7 @@
+schema: "classroom50/repo-config/v1"
+classroom: "mini-project-sem-1-lms"
+assignment: "week-1"
+owner:
+  username: "webwithmohan"
+  id: 155314226
+  accepted_at: "2026-08-04T04:22:50Z"

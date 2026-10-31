@@ -1,0 +1,223 @@
+@import url("variable.css");
+
+* {
+   margin: 0px;
+   padding: 0px;
+   box-sizing: border-box;
+}
+
+body {
+   font-family: var(--main-font);
+  
+   display: flex;
+   background: url("../assets/images/ChatGPT\ Image\ Aug\ 20\,\ 2026\,\ 08_56_32\ AM.png");
+
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background-size: cover;
+   object-fit: cover;
+   
+}
+
+section {
+   display: flex;
+   flex-direction: column;
+   width: 500px;
+   
+
+   gap: 20px;
+   justify-content: center;
+}
+
+a {
+
+   width: 100%;
+   border: 2px solid rgb(43, 179, 241);
+   height: 40px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* border-radius: 10px; */
+   text-decoration: none;
+   color: rgb(43, 179, 241);
+   font-weight: bold;
+}
+
+a:hover {
+   background-color: rgb(238, 237, 237);
+}
+
+.input-group input {
+   width: 100%;
+   height: 60px;
+   border: none;
+   outline: none;
+   padding: 0px 10px;
+   margin: 3px 0px;
+   /* border-radius: 15px; */
+   border: 1px solid rgb(212, 211, 211);
+   font-size: 15px;
+
+}
+
+.input-group input:focus {
+   border: 1px solid black;
+}
+
+.btn-group button {
+   width: 100%;
+   height: 40px;
+   border: none;
+   outline: none;
+   padding: 0px 5px;
+   margin: 3px 0px;
+}
+.forgot-btn{
+     width: 100%;
+   height: 40px;
+   border: none;
+   outline: none;
+   padding: 0px 5px;
+   margin: 3px 0px;
+
+}
+
+.btn-group .login-btn {
+   background-color: rgb(43, 179, 241);
+   color: white;
+   /* border-radius: 10px; */
+}
+
+.forgot-btn {
+
+   color: rgb(17, 1, 1);
+   /* border-radius: 10px; */
+   background-color: white;
+   font-weight: bold;
+
+
+
+}
+
+.forgot-btn:hover {
+   background-color: rgb(240, 238, 238);
+}
+
+.fa-facebook {
+   color: rgb(61, 122, 236);
+
+}
+
+.fa-github {
+   color: rgb(8, 9, 10);
+}
+
+.fa-instagram {
+   color: rgb(218, 9, 190);
+}
+
+.or {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.social-icons {
+   display: flex;
+   justify-content: center;
+}
+
+.social-icons .icons {
+   font-size: 40px;
+   margin: 0px 20px;
+
+}
+
+h3 {
+   display: flex;
+   justify-content: center;
+}
+.login-container{
+   
+}
+/* Ball Effect */
+.ball{
+   position: absolute;
+   width: 14px;
+   height: 14px;
+   background-color: white;
+   border-radius: 50%;
+   left: 25%;
+   bottom: -20px;
+   opacity: 0;
+   z-index: 1;
+   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.8);
+   animation: slowBall 12s ease-in-out infinite;
+}
+@keyframes slowBal{
+   0%{
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+   }
+   15%{
+      opacity: 0.7;
+   }
+   50%{
+      transform: translateY(-50vh) translateX(40px);
+      opacity: 0.8;
+      
+   }
+   80%{
+      opacity: 0.4;
+   }
+   100%{
+      transform: translateY(-110vh) translateX(400px);
+      opacity: 0;
+   }
+}
+
+.alert{
+   display: none;
+   position: absolute;
+   color: rgb(14, 13, 13);
+   top: 20px;
+   left: 45%;
+   background-color: white;
+   width: 300px;
+   height: 100px;
+   
+   justify-content: center;
+   align-items: center;
+   border-radius: 10px;
+
+}
+
+@media screen and (max-width:576px) {
+   body{
+      padding: 16px;
+   }
+
+   section {
+      width: min(100%, 500px);
+   }
+
+   .alert{
+      left: 50%;
+      width: min(300px, calc(100vw - 32px));
+      transform: translateX(-50%);
+   }
+}
+@media screen and (min-width:1000px) {
+   body{
+      justify-content: end;
+   }
+   h3{
+      font-size: 30px;
+   }
+   section {
+      margin:100px;
+
+      
+   }
+}

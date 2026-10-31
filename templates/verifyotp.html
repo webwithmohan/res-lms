@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Otp</title>
+  <link rel="stylesheet" href="../css/verifyotp.css" />
+</head>
+
+<body>
+  <form action="" onsubmit="verifyOtp()">
+    <p>Otp</p>
+    <input type="text" name="" placeholder="Enter Otp" id="userOtp" />
+     <p>New Password</p>
+     <input type="text" placeholder="Enter New Password" id="new-pass">
+    <button class="changeBtn" id="otp">Change Password</button>
+  </form>
+
+  <script>
+    let changeBtn = document.getElementsByClassName("changeBtn")[0];
+
+    changeBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      let otp = document.getElementsByTagName("input")[0].value;
+      let newPassword = document.getElementsByTagName("input")[1].value;
+
+      let totalUser=JSON.parse(localStorage.getItem('users'))
+      let currentOtp=JSON.parse(localStorage.getItem('currentOtp'))
+      if(currentOtp.otp == otp){
+        totalUser=totalUser.map((user) => {
+            if(user.email== currentOtp.email){
+                return{
+                    ...user,
+                    password:newPassword
+                }
+            }
+            return user;
+
+            
+            
+           
+        })
+
+        localStorage.setItem("users",JSON.stringify(totalUser))
+        alert("password Change Successfully")
+        localStorage.removeItem("currentOtp")
+        window.location.href="login.html"
+        
+        
+        
+      }else{
+        alert("Invalid Otp")
+      }
+      
+      
+      
+
+      
+    
+  
+        
+
+      
+    });
+
+
+  </script>
+</body>
+
+</html>
