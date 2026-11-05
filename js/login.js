@@ -1,58 +1,86 @@
 
 function checkLoginDetails(event) {
-  event.preventDefault();
-  let email = document.getElementById("email");
-  let pass = document.getElementById("password");
-  let error = document.getElementById("error");
+    event.preventDefault();
 
-  let retrivedData = JSON.parse(localStorage.getItem("users"));
-  console.log(retrivedData);
-  //current user find
+    // Get DOM elements
+    let email = document.getElementById("email");
+    let pass = document.getElementById("password");
+    let error = document.getElementById("error");
 
-  //      let current=retrivedData.find(d => d.email== email && d.password==pass);
-  //      console.log(current);
+    // Get registered users
+    let retrivedData = [];
 
-  //     localStorage.setItem("currentUser",JSON.stringify(current || "demo"))
-  // }
+    try {
+        retrivedData = JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
 
-  //////////////////////////////////////////////////////////////////////
-  let valid = false;
-
-  for (let d of retrivedData) {
-    if (email.value.trim() == d.email && pass.value.trim() == d.password) {
-      valid = true;
+    } catch (err) {
+        error.textContent = "Invalid user data";
+        error.style.color = "red";
+        return;
     }
-  }
 
-  let current = retrivedData.find((user) => user.email == email.value);
-  console.log(current);
-  localStorage.setItem("currentuser", JSON.stringify(current));
+    // Check whether users is an array
+    if (!Array.isArray(retrivedData)) {
+        error.textContent = "Invalid user data";
+        error.style.color = "red";
+        return;
+    }
 
-  if (valid) {
-    error.textContent = "";
-    email.value = "";
-    pass.value = "";
-    localStorage.setItem("isLoggedIn", true);
-    localStorage.setItem('isAuthenticated',true)
-    window.location.href = "dashboard.html";
-  } else {
-    error.textContent = "Invalid Username and Password";
-    error.style.color = "red";
-  }
+    // Get input values
+    let enteredEmail = email.value.trim();
+    let enteredPassword = pass.value.trim();
+
+    // Find matching user
+    let currentUser = retrivedData.find(user =>
+        user.email === enteredEmail &&
+        user.password === enteredPassword
+    );
+
+    // Validate login
+    if (currentUser) {
+
+        // Clear error
+        error.textContent = "";
+
+        // Store current user
+        localStorage.setItem(
+            "currentuser",
+            JSON.stringify(currentUser)
+        );
+
+        // Set authentication status
+        localStorage.setItem("isAuthenticated", "true");
+
+        // Clear inputs
+        email.value = "";
+        pass.value = "";
+
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+
+    } else {
+
+        error.textContent = "Invalid Username and Password";
+        error.style.color = "red";
+    }
 }
 
-//Render Forgot Password Page
+
+// Forgot Password Navigation
 let forgotBtn = document.getElementsByClassName("forgot-btn")[0];
-forgotBtn.addEventListener("click", function () {
-  window.location.href = "forgot.html";
-});
-let bool=localStorage.getItem('isAuthenticated')
-if(bool === "true"){
- 
-  
-   window.location.href = "dashboard.html";
 
+if (forgotBtn) {
+    forgotBtn.addEventListener("click", function () {
+        window.location.href = "forgot.html";
+    });
 }
-     
 
 
+// Check Authentication
+let isAuthenticated = localStorage.getItem("isAuthenticated");
+
+if (isAuthenticated === "true") {
+    window.location.href = "dashboard.html";
+}
