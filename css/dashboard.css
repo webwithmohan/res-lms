@@ -66,6 +66,21 @@ aside .menu li{
     padding: 15px;
     transition: 0.3s;
 }
+aside .menu li > a,
+aside .menu li > button{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
 aside .menu li:hover{
     background-color:var(--light-color);
     color: black;
@@ -314,19 +329,81 @@ main p{
     
 }
 .q-overlay{
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.50);
-    z-index: -1;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(15, 23, 42, 0.62);
+    z-index: 30;
     opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
 }
 .q-container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    width: min(100%, 620px);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
     background-color: white;
-    transform: translate(-50%,-50%);
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+}
+.q-container .title {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #edf1f6;
+}
+.q-container .input-group {
+    margin: 12px 0;
+}
+.q-container .input-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #334155;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+.q-container input,
+.q-container select {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid #d5deea;
+    border-radius: 8px;
+    background: white;
+    color: #172b4d;
+    font: inherit;
+}
+.q-container input:focus,
+.q-container select:focus {
+    outline: none;
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 3px rgba(55, 104, 164, 0.14);
+}
+.q-container .btnSection {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+.q-container .btnSection button {
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #334155;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+.q-container .btnSection .btnAdd {
+    border-color: var(--main-color);
+    background: var(--main-color);
+    color: white;
 }
 .q-container .input-group label{
     display: block;

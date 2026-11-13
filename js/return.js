@@ -37,7 +37,7 @@ function loadIssue() {
         </td>
         <td>${issue.issueDate}</td>
         <td>
-          <span class="date">${issue.dueDate}</</span>
+          <span class="date">${issue.dueDate}</span>
           <span class="status ${statusClass}">${statusText}</span>
         </td>
         <td>
