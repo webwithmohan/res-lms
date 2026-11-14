@@ -1,3 +1,24 @@
+.report-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.export-report{
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 16px;
+    background: #166534;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.export-report:hover{
+    background: #14532d;
+}
+
 .top {
     display: grid;
     grid-template-columns: repeat(4, minmax(200px, 1fr));

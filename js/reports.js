@@ -20,7 +20,8 @@ booksStocks.textContent=total;
 let categories=new Set(books.map(book => book.bookCategory))
 console.log(categories.size);
 
-bookTitle.textContent=categories.size
+const distinctTitles = new Set(books.map(book => book.bookTitle)).size;
+bookTitle.textContent = distinctTitles;
 
 
 //
@@ -144,3 +145,54 @@ issuebooks.forEach((data) => {
     logHistory.innerHTML +=`<tr><td>${data.issueId}</td><td>${data.issueBook}</td><td>${data.issueMember}</td><td>${data.issueDate}</td><td>${data.dueDate}</td></tr>`
 })
 
+document.getElementById("exportReport").addEventListener("click", () => {
+    const escapeCsvCell = (value) => {
+        let text = String(value ?? "");
+        if (/^[\t\r ]*[=+\-@]/.test(text)) {
+            text = `'${text}`;
+        }
+        return `"${text.replace(/"/g, '""')}"`;
+    };
+
+    const rows = [
+        ["Library Management System - Report"],
+        ["Generated on", new Date().toLocaleString()],
+        [],
+        ["Summary"],
+        ["Metric", "Value"],
+        ["Distinct Book Titles", distinctTitles],
+        ["Available Copies in Stock", total],
+        ["Active Issued Books", issuebooks.length],
+        ["Registered Members", user.length],
+        [],
+        ["Category-wise Count"],
+        ["Category", "Book Records", "Percentage"]
+    ];
+
+    Object.entries(categoryCount).forEach(([category, count]) => {
+        rows.push([category, count, `${((count / totalBooks) * 100).toFixed(1)}%`]);
+    });
+
+    rows.push(
+        [],
+        ["Full Lending History"],
+        ["Issue ID", "Book Title", "Member", "Issue Date", "Due Date"]
+    );
+    issuebooks.forEach((issue) => {
+        rows.push([
+            issue.issueId,
+            issue.issueBook,
+            issue.issueMember,
+            issue.issueDate,
+            issue.dueDate
+        ]);
+    });
+
+    const csv = "\uFEFF" + rows.map(row => row.map(escapeCsvCell).join(",")).join("\r\n");
+    const downloadUrl = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+    const downloadLink = document.createElement("a");
+    downloadLink.href = downloadUrl;
+    downloadLink.download = "library-report.csv";
+    downloadLink.click();
+    setTimeout(() => URL.revokeObjectURL(downloadUrl), 0);
+});

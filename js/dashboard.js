@@ -1,12 +1,4 @@
 document.addEventListener("sidebarloaded", () => {
-  let currentUser = JSON.parse(localStorage.getItem("currentuser"));
-  
-  
-  console.log(currentUser);
-
-  let user = document.querySelector(".profile p .user");
-  user.textContent = currentUser.username;
-
   const logoutButton = document.querySelector(".menu .logout button");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
@@ -29,10 +21,11 @@ document.addEventListener("sidebarloaded", () => {
 let recents=JSON.parse(localStorage.getItem('recenthistory')) || []
 let recent=recents.slice(-5).reverse();
 let tables=document.querySelector('.recent-issue-box table tbody')
-tables.innerHTML="";
-recent.forEach((r) => {
-  let status=r.status=="Issue"?"issue":"return"
-  tables.innerHTML +=` <tr>
+if (tables) {
+  tables.innerHTML="";
+  recent.forEach((r) => {
+    let status=r.status=="Issue"?"issue":"return"
+    tables.innerHTML +=` <tr>
               <th>${r.recentId}</th>
               <th>${r.issueMember}</th>
               <th>${r.issueBook}</th>
@@ -40,12 +33,14 @@ recent.forEach((r) => {
               <th>${r.dueDate}</th>
               <th><span class="${status}">${r.status}</span></th>
             </tr>`
-
-
-})
+  })
+}
 
 let memberss=JSON.parse(localStorage.getItem('users')) || []
-document.getElementById('members').textContent=memberss.length
+let membersCount=document.getElementById('members')
+if (membersCount) {
+  membersCount.textContent=memberss.length
+}
 
 let issuebooks=JSON.parse(localStorage.getItem('issuebooks')) || []
 let today=new Date()
@@ -55,7 +50,10 @@ let overdueBooks=issuebooks.filter((issue) => {
   dueDate.setHours(0,0,0,0)
   return dueDate < today
 })
-document.getElementById('available-books').textContent=overdueBooks.length
+let overdueCount=document.getElementById('available-books')
+if (overdueCount) {
+  overdueCount.textContent=overdueBooks.length
+}
 
 
 
@@ -78,7 +76,6 @@ function navigateIssueBooks(){
   
   window.location.href="../templates/issuebook.html"
 }
-
 
 
 

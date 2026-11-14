@@ -17,6 +17,12 @@ fetch("sidebar.html")
     }
 
     sidebar.innerHTML = sidebarContent.innerHTML;
+    const currentUser = JSON.parse(localStorage.getItem("currentuser"));
+    const username = sidebar.querySelector(".profile p .user");
+    if (username && currentUser?.username) {
+      username.textContent = currentUser.username;
+    }
+
     const currentPage = location.pathname.split("/").pop();
     const menuItems = document.querySelectorAll(".menu li[data-page]");
 
@@ -37,6 +43,5 @@ if (issueCount) {
   const issues = JSON.parse(localStorage.getItem("issuebooks")) || [];
   issueCount.textContent = issues.length;
 }
-
 
 
