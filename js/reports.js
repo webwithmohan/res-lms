@@ -196,3 +196,147 @@ document.getElementById("exportReport").addEventListener("click", () => {
     downloadLink.click();
     setTimeout(() => URL.revokeObjectURL(downloadUrl), 0);
 });
+
+document.getElementById("viewPdfReport").addEventListener("click", () => {
+    const jsPDF = window.jspdf?.jsPDF;
+    if (!jsPDF) {
+        console.error("Unable to create the report PDF because jsPDF did not load.");
+        window.alert("The PDF could not be created. Please check your internet connection and try again.");
+        return;
+    }
+
+    const pdf = new jsPDF({ unit: "mm", format: "a4" });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 14;
+    const bottomLimit = pageHeight - 18;
+    let y = 18;
+
+    const addSectionTitle = (title) => {
+        if (y + 12 > bottomLimit) {
+            pdf.addPage();
+            y = 18;
+        }
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(13);
+        pdf.text(title, margin, y);
+        y += 7;
+    };
+
+    const addTable = (headers, rows, columnWidths) => {
+        const rowHeight = (values) => {
+            const lineCount = values.reduce((max, value, index) => {
+                const lines = pdf.splitTextToSize(
+                    String(value ?? "-"),
+                    columnWidths[index] - 4
+                );
+                return Math.max(max, lines.length);
+            }, 1);
+            return Math.max(8, lineCount * 4.5 + 3);
+        };
+
+        const drawHeader = () => {
+            const height = 9;
+            pdf.setFillColor(30, 64, 99);
+            pdf.rect(margin, y, columnWidths.reduce((sum, width) => sum + width, 0), height, "F");
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont("helvetica", "bold");
+            pdf.setFontSize(8);
+            let x = margin;
+            headers.forEach((header, index) => {
+                pdf.text(String(header), x + 2, y + 6);
+                x += columnWidths[index];
+            });
+            pdf.setTextColor(31, 41, 55);
+            y += height;
+        };
+
+        drawHeader();
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(8);
+        rows.forEach((row) => {
+            const height = rowHeight(row);
+            if (y + height > bottomLimit) {
+                pdf.addPage();
+                y = 18;
+                drawHeader();
+            }
+
+            let x = margin;
+            row.forEach((value, index) => {
+                pdf.rect(x, y, columnWidths[index], height);
+                const lines = pdf.splitTextToSize(
+                    String(value ?? "-"),
+                    columnWidths[index] - 4
+                );
+                pdf.text(lines, x + 2, y + 4.5);
+                x += columnWidths[index];
+            });
+            y += height;
+        });
+        y += 7;
+    };
+
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(18);
+    pdf.text("Library Management System - Report", margin, y);
+    y += 8;
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text(`Generated on ${new Date().toLocaleString()}`, margin, y);
+    y += 10;
+
+    addSectionTitle("Summary");
+    addTable(
+        ["Metric", "Value"],
+        [
+            ["Distinct Book Titles", distinctTitles],
+            ["Available Copies in Stock", total],
+            ["Active Issued Books", issuebooks.length],
+            ["Registered Members", user.length],
+        ],
+        [100, 82]
+    );
+
+    addSectionTitle("Category-wise Count");
+    const categoryRows = Object.entries(categoryCount).map(([category, count]) => [
+        category,
+        count,
+        `${((count / totalBooks) * 100).toFixed(1)}%`,
+    ]);
+    addTable(["Category", "Book Records", "Percentage"], categoryRows, [76, 56, 50]);
+
+    addSectionTitle("Full Lending History");
+    const historyRows = issuebooks.map((issue) => [
+        issue.issueId,
+        issue.issueBook,
+        issue.issueMember,
+        issue.issueDate,
+        issue.dueDate,
+    ]);
+    addTable(
+        ["Issue ID", "Book Title", "Member", "Issue Date", "Due Date"],
+        historyRows,
+        [24, 48, 42, 34, 34]
+    );
+
+    const pageCount = pdf.internal.getNumberOfPages();
+    for (let page = 1; page <= pageCount; page += 1) {
+        pdf.setPage(page);
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(8);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text(`Page ${page} of ${pageCount}`, pageWidth - margin, pageHeight - 8, {
+            align: "right",
+        });
+    }
+
+    const pdfUrl = URL.createObjectURL(pdf.output("blob"));
+    window.open(pdfUrl, "_blank");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pdfUrl;
+    downloadLink.download = "library-report.pdf";
+    downloadLink.click();
+    setTimeout(() => URL.revokeObjectURL(pdfUrl), 60000);
+});
