@@ -62,7 +62,7 @@ function navigateIssueBooks(){
 let totalbooks=document.getElementById('totalBooks');
 let b=JSON.parse(localStorage.getItem('books')) || []
 let totalBooksCount=b.reduce((acc,val) => {
-  return acc + val.bookQuantity
+  return acc + Number(val.bookQuantity)
 },0)
 
 totalbooks.textContent=totalBooksCount
