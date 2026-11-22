@@ -73,6 +73,7 @@ document.onload = loadIssue();
 
 //Return Book Management
 function returnBook(id, bookId, issueId) {
+  if (!window.requireAdmin()) return;
   let i = issuebooks.find(issue => issue.issueId == issueId)
   issuebooks = issuebooks.filter((issue) => issue.issueId !== id);
   localStorage.setItem("issuebooks", JSON.stringify(issuebooks));
@@ -93,7 +94,7 @@ function updateBook(id) {
 //function recentHistory
 
 function recentHistory(id) {
-  const { dueDate, issueDate, issueBook, issueMember } = id;
+  const { dueDate, issueDate, issueBook, issueMemberId, issueMember } = id;
 
   let recent = JSON.parse(localStorage.getItem("recenthistory")) || [];
   let recentID;
@@ -106,6 +107,7 @@ function recentHistory(id) {
 
   let newRecent = {
     recentId: recentID,
+    issueMemberId: issueMemberId,
     issueMember: issueMember,
     status: "Return",
     issueBook: issueBook,

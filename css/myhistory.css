@@ -1,0 +1,33 @@
+.history-section {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(15, 32, 54, 0.08);
+}
+
+.history-section h2 {
+  margin: 0 0 16px;
+  color: var(--main-color);
+}
+
+.history-table-wrap {
+  overflow-x: auto;
+}
+
+.history-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table-wrap th,
+.history-table-wrap td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.history-empty {
+  color: #64748b;
+  text-align: center !important;
+}

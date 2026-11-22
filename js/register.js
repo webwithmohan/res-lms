@@ -114,23 +114,33 @@ function checkForm() {
 
   if (valid) {
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    let memberid;
-    if (users.length === 0) {
-      memberid = "MEM-101";
-    } else {
-      let lastMember = users[users.length - 1];
-      let lastId = parseInt(lastMember.memberId.split("-")[1]);
-      memberid = `MEM-${lastId + 1}`;
+    const matchingIds = users
+      .map((user) => user.memberId)
+      .filter((id) => typeof id === "string" && id.startsWith("MEM-"));
+    const highestId = matchingIds.reduce((highest, id) => {
+      const number = Number.parseInt(id.split("-")[1], 10);
+      return Number.isFinite(number) ? Math.max(highest, number) : highest;
+    }, 100);
+    const accountId = `MEM-${highestId + 1}`;
+
+    const emailExists = users.some(
+      (user) => user.email?.toLowerCase() === email.value.trim().toLowerCase(),
+    );
+    if (emailExists) {
+      emailError.textContent = "Email Already Registered";
+      emailError.style.color = "red";
+      return;
     }
 
     let newUser = {
-      memberId: memberid,
+      memberId: accountId,
       username: username.value.trim(),
       email: email.value.trim(),
       department: document.getElementById("department").value,
       phone: phone.value.trim(),
       address: address.value,
       password: password.value.trim(),
+      role: "user",
     };
 
     //new user

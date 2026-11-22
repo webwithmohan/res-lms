@@ -1,22 +1,3 @@
-document.addEventListener("sidebarloaded", () => {
-  const logoutButton = document.querySelector(".menu .logout button");
-  if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
-      Swal.fire({
-        icon: "warning",
-        title: "Are you Sure to Logout",
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          localStorage.setItem("isAuthenticated", false);
-          window.location.href = "login.html";
-        }
-      });
-    });
-  }
-});
-
-
 //recent History Manage
 let recents=JSON.parse(localStorage.getItem('recenthistory')) || []
 let recent=recents.slice(-5).reverse();
@@ -76,6 +57,17 @@ function navigateIssueBooks(){
   
   window.location.href="../templates/issuebook.html"
 }
+
+
+let totalbooks=document.getElementById('totalBooks');
+let b=JSON.parse(localStorage.getItem('books')) || []
+let totalBooksCount=b.reduce((acc,val) => {
+  return acc + val.bookQuantity
+},0)
+
+totalbooks.textContent=totalBooksCount
+
+
 
 
 

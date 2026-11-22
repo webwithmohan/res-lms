@@ -14,7 +14,7 @@
     />
 </head>
 
-<body>
+<body data-admin-only="true">
   <aside></aside>
 
   <!--Main Content-->
@@ -56,9 +56,11 @@
 
   </main>
   <button
+    class="admin-only"
     style="position: absolute; top: 20px; right: 20px;background-color: var(--main-color);color: white; padding: 5px 10px;border: none; outline: none; border-radius: 4px;"
     onClick="addMember('MEM-101')">Add Member<button>
 
+      <script src="../js/auth.js"></script>
       <script src="../js/sidebar.js"></script>
       <script src="../js/dashboard.js"></script>
       <script src="../js/member.js"></script>

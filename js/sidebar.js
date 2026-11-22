@@ -1,3 +1,29 @@
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element) || !event.target.closest(".menu .logout button")) {
+    return;
+  }
+
+  const logout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("currentuser");
+    window.location.replace("login.html");
+  };
+
+  if (window.Swal?.fire) {
+    window.Swal.fire({
+      icon: "warning",
+      title: "Are you sure to Logout",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) logout();
+    });
+    return;
+  }
+
+  if (window.confirm("Are you sure to Logout")) {
+    logout();
+  }
+});
 
 fetch("sidebar.html")
   .then((response) => {
@@ -18,6 +44,12 @@ fetch("sidebar.html")
 
     sidebar.innerHTML = sidebarContent.innerHTML;
     const currentUser = JSON.parse(localStorage.getItem("currentuser"));
+    sidebar.querySelectorAll(".admin-page-link").forEach((element) => {
+      if (!window.isAdmin) element.remove();
+    });
+    sidebar.querySelectorAll(".user-page-link").forEach((element) => {
+      if (window.isAdmin) element.remove();
+    });
     const username = sidebar.querySelector(".profile p .user");
     if (username && currentUser?.username) {
       username.textContent = currentUser.username;

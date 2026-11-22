@@ -31,12 +31,32 @@ function checkLoginDetails(event) {
     // Get input values
     let enteredEmail = email.value.trim();
     let enteredPassword = pass.value.trim();
+    let selectedRole = document.querySelector('input[name="loginRole"]:checked')?.value || "user";
 
-    // Find matching user
-    let currentUser = retrivedData.find(user =>
-        user.email === enteredEmail &&
-        user.password === enteredPassword
-    );
+    const adminAccount = {
+        memberId: "ADM-001",
+        username: "Admin",
+        email: "admin@lms.com",
+        department: "Administration",
+        phone: "",
+        address: "",
+        role: "admin"
+    };
+
+    // The local-only admin credentials are intentionally not saved with member data.
+    const isAdminLogin =
+        selectedRole === "admin" &&
+        enteredEmail === "admin@lms.com" &&
+        enteredPassword === "admin123";
+    let currentUser = isAdminLogin
+        ? adminAccount
+        : selectedRole === "user"
+          ? retrivedData.find(user =>
+                user.email === enteredEmail &&
+                user.password === enteredPassword &&
+                (user.role || "user") === "user"
+            )
+          : null;
 
     // Validate login
     if (currentUser) {
@@ -78,9 +98,4 @@ if (forgotBtn) {
 }
 
 
-// Check Authentication
-let isAuthenticated = localStorage.getItem("isAuthenticated");
 
-if (isAuthenticated === "true") {
-    window.location.href = "dashboard.html";
-}

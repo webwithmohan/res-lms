@@ -1,6 +1,17 @@
 
 
-let members = JSON.parse(localStorage.getItem("users"));
+let allUsers = JSON.parse(localStorage.getItem("users")) || [];
+let members = allUsers.filter(
+    (user) => (user.role || "user") === "user"
+);
+
+function persistUsers() {
+    allUsers = [
+        ...allUsers.filter((user) => (user.role || "user") !== "user"),
+        ...members,
+    ];
+    localStorage.setItem("users", JSON.stringify(allUsers));
+}
 
 function loadMembersData() {
     let main = document.querySelector("table tbody")
@@ -22,6 +33,7 @@ document.onload = loadMembersData();
 
 //Create editUserPopup function
 function editUserPopup(id) {
+    if (!window.requireAdmin()) return;
     let mem = members.find(user => user.memberId == id)
     let existingOverlay = document.querySelector('.overlay');
     if (existingOverlay) {
@@ -53,6 +65,7 @@ function editUserPopup(id) {
 
 //Edit Function
 function editMember() {
+    if (!window.requireAdmin()) return;
     event.preventDefault();
     let memberId = document.getElementById('memberId').value;
     let memberUsername = document.getElementById('memberUsername').value;
@@ -89,7 +102,7 @@ function editMember() {
     user.department = memberDepartment;
     user.phone = memberPhone;
     user.address=memberAddress;
-    localStorage.setItem('users', JSON.stringify(members))
+    persistUsers();
     document.getElementsByClassName('overlay')[0].style.display = "none"
     loadMembersData();
     Toastify({
@@ -118,6 +131,7 @@ function editMember() {
 }
 //Delete User Popup
 function deleteUser(id) {
+    if (!window.requireAdmin()) return;
     Swal.fire({
         icon: "warning",
         title: "Are you sure to delete ?",
@@ -126,7 +140,7 @@ function deleteUser(id) {
         if (result.isConfirmed) {
             if (members.length > 1) {
                 members = members.filter(user => user.memberId != id);
-                localStorage.setItem('users', JSON.stringify(members))
+                persistUsers();
 
                 Toastify({
                     text: "Deleted Member  Successfully !",
@@ -146,7 +160,7 @@ function deleteUser(id) {
 
             } else {
                 members = members.filter(user => user.memberId != id);
-                localStorage.setItem('users', JSON.stringify(members))
+                persistUsers();
                 window.location.href = "../templates/login.html"
 
             }
@@ -159,10 +173,15 @@ function deleteUser(id) {
 }
 //Add member function
 function addMember(id) {
-    let mem = members[members.length -1].memberId
-    let newId;
-    let cid = Number(mem.split('-')[1]) + 1
-    newId = `MEM-${cid}`
+    if (!window.requireAdmin()) return;
+    const memberIds = members
+        .map((member) => member.memberId)
+        .filter((memberId) => typeof memberId === "string" && memberId.startsWith("MEM-"));
+    const highestId = memberIds.reduce((highest, memberId) => {
+        const number = Number.parseInt(memberId.split("-")[1], 10);
+        return Number.isFinite(number) ? Math.max(highest, number) : highest;
+    }, 100);
+    const newId = `MEM-${highestId + 1}`;
 
 
 
@@ -195,7 +214,7 @@ function addMember(id) {
 
 //Save Member Function
 function saveMember() {
-
+    if (!window.requireAdmin()) return;
     event.preventDefault();
     let memberId = document.getElementById('memberId').value;
     let memberUsername = document.getElementById('memberUsername').value;
@@ -266,7 +285,7 @@ function saveMember() {
 
 
         }).showToast();
-
+        return;
     }
 
 
@@ -278,6 +297,7 @@ function saveMember() {
         password: memberPassword,
         phone: memberPhone,
         username: memberUsername,
+        role: "user",
 
     }
     members.push(newUser);
@@ -293,7 +313,7 @@ function saveMember() {
 
 
     }).showToast();
-    localStorage.setItem('users',JSON.stringify(members))
+    persistUsers();
     loadMembersData()
     document.getElementsByClassName('overlay')[0].style.display = "none"
 

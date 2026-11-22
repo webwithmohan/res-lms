@@ -9,11 +9,13 @@
 
     
 
-    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let users = (JSON.parse(localStorage.getItem('users')) || []).filter(
+      (user) => (user.role || 'user') === 'user'
+    );
     let books = JSON.parse(localStorage.getItem('books')) || [];
     users.forEach((user) => {
       let element = document.createElement('option')
-      element.value = user.username
+      element.value = user.memberId
       element.textContent = user.username;
       memberSelect.appendChild(element)
     })
@@ -46,6 +48,7 @@
     // localStorage.removeItem('books')
 
     issueBtn.addEventListener('click', function (event) {
+      if (!window.requireAdmin()) return;
       event.preventDefault();
       let issueDate = document.getElementById('issueDate')
       let dueDate = document.getElementById('dueDate')
@@ -70,6 +73,7 @@
       }
       else {
         let issueBooks = JSON.parse(localStorage.getItem('issuebooks')) || [];
+        const selectedMember = users.find(user => user.memberId === memberSelect.value);
         const selectedBook = books.find(book => book.bookId === bookSelect.value)
         let issueId;
         if(issueBooks.length == 0){
@@ -91,7 +95,8 @@
         const newIssue = {
           issueId:issueId,
           bookId: selectedBook.bookId,
-          issueMember: memberSelect.value,
+          issueMemberId: selectedMember.memberId,
+          issueMember: selectedMember.username,
           issueBook: selectedBook.bookTitle,
           issueDate: issueDate.value,
           dueDate: dueDate.value
@@ -136,9 +141,10 @@
             recentId=id;
 
         }
-        const {issueMember,issueBook,issueDate,dueDate}=d;
+        const {issueMemberId,issueMember,issueBook,issueDate,dueDate}=d;
         let n={
             recentId:recentId,
+            issueMemberId:issueMemberId,
             issueMember:issueMember,
             status:"Issue",
             issueBook:issueBook,

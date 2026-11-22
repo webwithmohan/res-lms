@@ -244,6 +244,40 @@ h3 {
    font-size: 1.8rem;
 }
 
+.role-selector {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 8px;
+   margin: 6px 0 10px;
+}
+
+.role-option {
+   position: relative;
+}
+
+.role-option input {
+   position: absolute;
+   opacity: 0;
+}
+
+.role-option span {
+   display: flex;
+   min-height: 44px;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid rgba(255, 255, 255, 0.45);
+   border-radius: 9px;
+   color: #dbeafe;
+   cursor: pointer;
+   font-weight: 600;
+}
+
+.role-option input:checked + span {
+   border-color: #57b8ed;
+   background: #268bc4;
+   color: #fff;
+}
+
 .input-group input {
    height: 52px;
    padding: 0 15px;

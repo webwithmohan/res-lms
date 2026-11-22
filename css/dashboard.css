@@ -126,6 +126,85 @@ main h2{
 main p{
     color: #4b5563;
 }
+.dashboard-welcome{
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    min-height: 380px;
+    padding: clamp(32px, 6vw, 72px);
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+}
+.dashboard-welcome::before,
+.dashboard-welcome::after{
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+}
+.dashboard-welcome::before{
+    z-index: -1;
+    background: url("../assets/images/library-image.jfif") center / cover;
+    transition: transform 650ms ease;
+}
+.dashboard-welcome::after{
+    z-index: 0;
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.35));
+}
+.dashboard-welcome:hover::before,
+.dashboard-welcome:focus-within::before{
+    transform: scale(1.06);
+}
+.dashboard-welcome h1{
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    color: white;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+}
+.dashboard-welcome p{
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+.dashboard-welcome-link{
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin-top: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: white;
+    color: #172b4d;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.dashboard-welcome-link:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.dashboard-welcome-link:focus-visible{
+    outline: 3px solid #facc15;
+    outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce){
+    .dashboard-welcome::before,
+    .dashboard-welcome-link{
+        transition: none;
+    }
+}
 .placeholder-box{
     background: #fff;
     border: 1px dashed #cbd5e1;

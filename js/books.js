@@ -27,6 +27,18 @@ categories.forEach((book) => {
 //render all books;
 
 let bookContainer = document.querySelector(".table-container table tbody");
+if (!window.isAdmin) {
+  document.querySelector(".book-table .action-col")?.remove();
+}
+
+function renderBookActions(bookId) {
+  if (!window.isAdmin) return "";
+  return `<td class="action-col">
+    <button onclick="openEditPopup('${bookId}')" class="btn-edit btn">Edit</button>
+    <button onclick="deleteBook('${bookId}')" class="btn-delete btn">Delete</button>
+  </td>`;
+}
+
 books.forEach((book) => {
   bookContainer.innerHTML += `<tr>
                 <td>${book.bookId}</td>
@@ -35,15 +47,7 @@ books.forEach((book) => {
                 <td>${book.bookCategory}</td>
                 <td>${book.bookQuantity && Number(book.bookQuantity) > 0 ?book.bookQuantity : `<span style="color:red";>Out of Stock</span>`}</td>
                 
-                <td class="action-col">
-                  <button onclick="openEditPopup('${book.bookId}')" class="btn-edit btn"><span class=" edit-icon material-symbols-outlined">
-edit
-</span>Edit</button>
-                  <button onclick="deleteBook('${book.bookId}')" class="btn-delete btn"><span class="delete-icon material-symbols-outlined">
-delete
-</span>Delete</button>
-                  
-                </td>
+                ${renderBookActions(book.bookId)}
               </tr>`;
 });
 
@@ -68,15 +72,7 @@ function displayBooks(cat) {
                 <td>${book.bookCategory}</td>
                 <td>${book.bookQuantity}</td>
                 
-                <td>
-                  <button class="btn-edit btn" onclick="openEditPopup('${book.bookId}')"><span class=" edit-icon material-symbols-outlined">
-edit
-</span>Edit</button>
-                  <button class="btn-delete btn" onclick="deleteBook('${book.bookId}')"><span class="delete-icon material-symbols-outlined">
-delete
-</span>Delete</button>
-                  
-                </td>
+                ${renderBookActions(book.bookId)}
               </tr>`;
     });
   } else {
@@ -90,15 +86,7 @@ delete
                 <td>${book.bookCategory}</td>
                  <td>${book.bookQuantity && Number(book.bookQuantity) > 0 ?book.bookQuantity : `<span style="color:red";>Out of Stock</span>`}</td>
               
-                <td >
-                  <button onclick="openEditPopup('${book.bookId}')" class="btn-edit btn"><span class=" edit-icon material-symbols-outlined">
-edit
-</span>Edit</button>
-                  <button onclick="deleteBook('${book.bookId}')" class="btn-delete btn"><span class="delete-icon material-symbols-outlined">
-delete
-</span>Delete</button>
-                  
-                </td>
+                ${renderBookActions(book.bookId)}
               </tr>`;
     });
   }
@@ -159,6 +147,7 @@ function setActiveItem(li) {
 //open AddBook Popup
 
 function openBookPopup() {
+  if (!window.requireAdmin()) return;
   let b = JSON.parse(localStorage.getItem("books"))
   let overlay = document.querySelector(".overlay");
   overlay.style.display = "flex";
@@ -185,6 +174,7 @@ function editOverlay() {
 //addBook Functionality
 
 function addBook() {
+  if (!window.requireAdmin()) return;
   let bookId = document.getElementById("bookId").value;
   let bookTitle = document.getElementById("bookTitle").value;
   let bookAuthor = document.getElementById("bookAuthor").value;
@@ -248,6 +238,7 @@ function clear() {
 //delete Book
 
 function deleteBook(id) {
+  if (!window.requireAdmin()) return;
   Swal.fire({
     icon: "warning",
     title: "Are you sure to Delete",
@@ -280,6 +271,7 @@ function deleteBook(id) {
 //Edit Book
 let overlay = document.getElementsByClassName("editOverlay")[0];
 function openEditPopup(id) {
+  if (!window.requireAdmin()) return;
   overlay.style.display = "flex";
   let books = JSON.parse(localStorage.getItem("books")) || [];
   let book = books.find((book) => book.bookId === id);
@@ -316,6 +308,7 @@ function openEditPopup(id) {
 }
 
 function editBook() {
+  if (!window.requireAdmin()) return;
   let books = JSON.parse(localStorage.getItem("books")) || [];
   let id = document.getElementById("editBookId").value;
 
@@ -359,13 +352,7 @@ function bookSearch(data) {
                 <td>${book.bookCategory}</td>
                 <td>${book.bookQuantity && Number(book.bookQuantity) > 0 ?book.bookQuantity : `<span style="color:red";>Out of Stock</span>`}</td>
               
-                <td>
-                  <button onclick="openEditPopup('${book.bookId}')" class="btn-edit btn"><span class="edit-icon material-symbols-outlined">
-edit
-</span>Edit</button>
-                  <button onclick="deleteBook('${book.bookId}')" class="btn-delete btn"><span class="delete-icon material-symbols-outlined">delete</span>Delete</button>
-                  
-                </td>
+                ${renderBookActions(book.bookId)}
               </tr>`;
   });
 }
